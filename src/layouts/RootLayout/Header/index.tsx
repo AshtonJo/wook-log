@@ -6,9 +6,10 @@ import { zIndexes } from "src/styles/zIndexes"
 
 type Props = {
   fullWidth: boolean
+  readingProgress: number
 }
 
-const Header: React.FC<Props> = ({ fullWidth }) => {
+const Header: React.FC<Props> = ({ fullWidth, readingProgress }) => {
   return (
     <StyledWrapper>
       <div data-full-width={fullWidth} className="container">
@@ -18,6 +19,7 @@ const Header: React.FC<Props> = ({ fullWidth }) => {
           <NavBar />
         </div>
       </div>
+      <ReadingProgress readingProgress={readingProgress} fullWidth={false} />
     </StyledWrapper>
   )
 }
@@ -53,4 +55,11 @@ const StyledWrapper = styled.div`
       align-items: center;
     }
   }
+`
+const ReadingProgress = styled.div<Props>`
+  width: ${({ readingProgress }) => readingProgress + "%"};
+  height: 0.2rem;
+  background-color: ${({ theme }) => theme.colors.blue10};
+  opacity: 0.6;
+  transition: width 0.4s ease-out;
 `
