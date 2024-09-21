@@ -54,7 +54,6 @@ const RootLayout = ({ children }: Props) => {
   const [throttleScrollY, setThrottleScrollY] = useState<number>(0)
 
   const [scheme] = useScheme()
-  console.log(throttleScrollY)
   useGtagEffect()
 
   const scrollThrottle = useThrottle(() => {

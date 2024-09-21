@@ -12,13 +12,15 @@ type Props = {
 const Header: React.FC<Props> = ({ fullWidth, readingProgress }) => {
   return (
     <StyledWrapper>
-      <div data-full-width={fullWidth} className="container">
-        <Logo />
-        <div className="nav">
-          <ThemeToggle />
-          <NavBar />
+      <HeaderWrapper>
+        <div data-full-width={fullWidth} className="container">
+          <Logo />
+          <div className="nav">
+            <ThemeToggle />
+            <NavBar />
+          </div>
         </div>
-      </div>
+      </HeaderWrapper>
       <ReadingProgress readingProgress={readingProgress} fullWidth={false} />
     </StyledWrapper>
   )
@@ -30,9 +32,13 @@ const StyledWrapper = styled.div`
   z-index: ${zIndexes.header};
   position: sticky;
   top: 0;
-  background-color: ${({ theme }) => theme.colors.gray2};
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(50px);
+`
 
+const HeaderWrapper = styled.div`
+  padding: 10px 0;
+  background-color: ${({ theme }) => theme.colors.grayA1};
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   .container {
     display: flex;
     padding-left: 1rem;
@@ -59,7 +65,7 @@ const StyledWrapper = styled.div`
 const ReadingProgress = styled.div<Props>`
   width: ${({ readingProgress }) => readingProgress + "%"};
   height: 0.2rem;
-  background-color: ${({ theme }) => theme.colors.blue10};
+  background-color: ${({ theme }) => theme.colors.blue11};
   opacity: 0.6;
   transition: width 0.4s ease-out;
 `
