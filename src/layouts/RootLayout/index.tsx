@@ -62,6 +62,8 @@ const RootLayout = ({ children }: Props) => {
 
   const getCurrentPercent = () => {
     if (router.asPath === "/") return 0
+    if (router.asPath === "/?order=desc") return 0
+    if (router.asPath === "/?order=asc") return 0
 
     let percent = Math.ceil((throttleScrollY / blogHeight) * 100)
 
