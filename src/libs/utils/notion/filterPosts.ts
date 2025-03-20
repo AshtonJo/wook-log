@@ -22,8 +22,7 @@ export function filterPosts(
   const filteredPosts = posts
     // filter data
     .filter((post) => {
-      if (!post.date && !post.createdTime) return false // date와 createdTime 둘 다 없으면 필터링
-      const postDate = new Date(post?.date?.start_date ?? post.createdTime)
+      const postDate = new Date(post?.date?.start_date || post.createdTime)
       if (!post.title || !post.slug || postDate > tomorrow) return false
       return true
     })
