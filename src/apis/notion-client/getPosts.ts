@@ -18,7 +18,7 @@ export const getPosts = async () => {
   const response = await api.getPage(id)
   id = idToUuid(id)
   const collection = Object.values(response.collection)[0]?.value
-  const block = response.block
+  const block = response.block //기존 block 참조 데이터
   const schema = collection?.schema
 
   const rawMetadata = block[id].value
@@ -32,16 +32,21 @@ export const getPosts = async () => {
   } else {
     // Construct Data
     const pageIds = getAllPageIds(response)
+    const tempBlock = await (await api.getBlocks(pageIds)).recordMap.block //수정한 block 참조 데이터
+
     const data = []
     for (let i = 0; i < pageIds.length; i++) {
       const id = pageIds[i]
-      const properties = (await getPageProperties(id, block, schema)) || null
+      const properties =
+        (await getPageProperties(id, tempBlock, schema)) || null
+      if (!tempBlock[id]) continue
+
       // Add fullwidth, createdtime to properties
       properties.createdTime = new Date(
-        block[id].value?.created_time
+        tempBlock[id].value?.created_time
       ).toString()
       properties.fullWidth =
-        (block[id].value?.format as any)?.page_full_width ?? false
+        (tempBlock[id].value?.format as any)?.page_full_width ?? false
 
       data.push(properties)
     }
