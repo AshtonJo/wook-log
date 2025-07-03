@@ -1,30 +1,49 @@
+// pages/sitemap.xml.tsx
+import { GetServerSideProps } from "next"
+import { getServerSideSitemap, ISitemapField } from "next-sitemap"
 import { getPosts } from "../apis/notion-client/getPosts"
 import { CONFIG } from "site.config"
-import { getServerSideSitemap, ISitemapField } from "next-sitemap"
-import { GetServerSideProps } from "next"
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const posts = await getPosts()
-  const dynamicPaths = posts.map((post) => `${CONFIG.link}/${post.slug}`)
+  try {
+    const posts = await getPosts()
 
-  // Create an array of fields, each with a loc and lastmod
-  const fields: ISitemapField[] = dynamicPaths.map((path) => ({
-    loc: path,
-    lastmod: new Date().toISOString(),
-    priority: 0.7,
-    changefreq: "daily",
-  }))
+    const fields: ISitemapField[] = [
+      {
+        loc: CONFIG.link,
+        lastmod: new Date().toISOString(),
+        priority: 1.0,
+        changefreq: "daily" as const,
+      },
+    ]
 
-  // Include the site root separately
-  fields.unshift({
-    loc: CONFIG.link,
-    lastmod: new Date().toISOString(),
-    priority: 1.0,
-    changefreq: "daily",
-  })
+    // 포스트 추가
+    posts.forEach((post) => {
+      // 날짜 처리: date.start_date 우선, 없으면 createdTime 사용
+      const postDate = post.date?.start_date || post.createdTime
 
-  return getServerSideSitemap(ctx, fields)
+      fields.push({
+        loc: `${CONFIG.link}/${encodeURIComponent(post.slug)}`,
+        lastmod: new Date(postDate).toISOString(),
+        priority: 0.7,
+        changefreq: "daily" as const,
+      })
+    })
+
+    return getServerSideSitemap(ctx, fields)
+  } catch (error) {
+    console.error("Sitemap generation error:", error)
+    return getServerSideSitemap(ctx, [
+      {
+        loc: CONFIG.link,
+        lastmod: new Date().toISOString(),
+        priority: 1.0,
+        changefreq: "daily" as const,
+      },
+    ])
+  }
 }
 
-// Default export to prevent next.js errors
-export default () => {}
+export default function Sitemap() {
+  return null
+}
