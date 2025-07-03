@@ -6,6 +6,7 @@ const CONFIG = {
     role: "프론트엔드 개발자",
     bio: "Working at Soulphos Co.",
     email: "hee576@nate.com",
+    linkedin: "wookheejo",
     github: "ashtonjo",
     instagram: "0xff8c00",
   },
@@ -61,7 +62,7 @@ const CONFIG = {
     },
   },
   cusdis: {
-    enable: false,
+    enable: true,
     config: {
       host: "https://cusdis.com",
       appid: "", // Embed Code -> data-app-id value
