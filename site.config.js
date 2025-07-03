@@ -1,5 +1,6 @@
 const CONFIG = {
   // profile setting (required)
+  // 적용 사항 변경후 vercel 배포 로그 가서 확인
   profile: {
     name: "조욱희",
     image: "/me.png", // If you want to create your own notion avatar, check out https://notion-avatar.vercel.app
