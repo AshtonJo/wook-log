@@ -1,12 +1,11 @@
 const CONFIG = {
   // profile setting (required)
   profile: {
-    name: "wookhee jo",
-    image: "/avatar.svg", // If you want to create your own notion avatar, check out https://notion-avatar.vercel.app
-    role: "future AI developer(DS)",
-    bio: "love development and music",
+    name: "조욱희",
+    image: "/me.png", // If you want to create your own notion avatar, check out https://notion-avatar.vercel.app
+    role: "프론트엔드 개발자",
+    bio: "Working at Soulphos Co.",
     email: "hee576@nate.com",
-    linkedin: "wookheejo",
     github: "ashtonjo",
     instagram: "0xff8c00",
   },
@@ -20,7 +19,7 @@ const CONFIG = {
   blog: {
     title: "wook-log",
     description: "welcome to wooklog!",
-    scheme: "dark", // 'light' | 'dark' | 'system'
+    scheme: "system", // 'light' | 'dark' | 'system'
   },
 
   // CONFIG configration (required)
@@ -36,19 +35,19 @@ const CONFIG = {
 
   // plugin configuration (optional)
   googleAnalytics: {
-    enable: false,
+    enable: true,
     config: {
       measurementId: process.env.NEXT_PUBLIC_GOOGLE_MEASUREMENT_ID || "",
     },
   },
   googleSearchConsole: {
-    enable: false,
+    enable: true,
     config: {
       siteVerification: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || "",
     },
   },
   naverSearchAdvisor: {
-    enable: false,
+    enable: true,
     config: {
       siteVerification: process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION || "",
     },
