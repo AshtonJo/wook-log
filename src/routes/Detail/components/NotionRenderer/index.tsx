@@ -60,7 +60,7 @@ const NotionRenderer: FC<Props> = ({ recordMap }) => {
     <StyledWrapper>
       <_NotionRenderer
         darkMode={scheme === "dark"}
-        recordMap={recordMap}
+        recordMap={recordMap as any}
         components={{
           Code,
           Collection,

@@ -10,7 +10,12 @@ import { dehydrate } from "@tanstack/react-query"
 import { filterPosts } from "src/libs/utils/notion"
 
 export const getStaticProps: GetStaticProps = async () => {
-  const posts = filterPosts(await getPosts())
+  const rawPosts = await getPosts()
+  console.log("✅ [index] before filter:", rawPosts.length)
+
+  const posts = filterPosts(rawPosts)
+  console.log("✅ [index] after filter:", posts.length)
+
   await queryClient.prefetchQuery(queryKey.posts(), () => posts)
 
   return {
